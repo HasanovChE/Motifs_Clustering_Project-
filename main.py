@@ -150,18 +150,18 @@ def run_pipeline(input_csv_path="data/signals_data.csv", output_dir="outputs", p
     if not df_derivative.empty:
         df_derivative["extraction_method"] = "derivative_based"
 
-    raw_motifs_df = pd.concat([df_adaptive, df_zero, df_peaks, df_derivative], ignore_index=True)
+    raw_motifs = pd.concat([df_adaptive, df_zero, df_peaks, df_derivative], ignore_index=True)
     
     # If no motifs extracted (e.g. extreme flat synthetic data), fallback to percentile threshold
-    if raw_motifs_df.empty:
+    if raw_motifs.empty:
         df_perc = extractor.extract_percentile_threshold(percentile=85.0, min_length=10)
         df_perc["extraction_method"] = "percentile_threshold"
-        raw_motifs_df = df_perc
+        raw_motifs = df_perc
         
-    raw_motifs_path = os.path.join("data", "raw_motifs_df.csv")
-    raw_motifs_df.to_csv(raw_motifs_path, index=False)
-    raw_motifs_df.to_csv(os.path.join(output_dir, "raw_extracted_motifs.csv"), index=False)
-    results_bundle["raw_motifs_count"] = len(raw_motifs_df)
+    raw_motifs_path = os.path.join("data", "raw_motifs.csv")
+    raw_motifs.to_csv(raw_motifs_path, index=False)
+    raw_motifs.to_csv(os.path.join(output_dir, "raw_extracted_motifs.csv"), index=False)
+    results_bundle["raw_motifs_count"] = len(raw_motifs)
 
     # ==========================================
     # STAGE 4: MOTIF CLEANING & FILTERING
@@ -187,7 +187,7 @@ def run_pipeline(input_csv_path="data/signals_data.csv", output_dir="outputs", p
 
     if len(clean_motifs_df) < 3:
         log_progress(4, "Warning", "Less than 3 motifs survived cleaning. Reducing strictness to guarantee clustering...")
-        clean_motifs_df = raw_motifs_df.drop_duplicates(subset=['Signal_ID', 'Start_Index', 'End_Index']).copy()
+        clean_motifs_df = raw_motifs.drop_duplicates(subset=['Signal_ID', 'Start_Index', 'End_Index']).copy()
         clean_motifs_df.to_csv(cleaned_path, index=False)
         clean_motifs_df.to_csv("cleaned_motifs.csv", index=False)
         clean_motifs_df.to_csv(os.path.join(output_dir, "cleaned_motifs.csv"), index=False)
