@@ -72,7 +72,7 @@ class MotifFeatureEngineer:
             'Shape_Avg_Slope': avg_slope,
             'Shape_Rise_Time_Ratio': rise_time,
             'Shape_Fall_Time_Ratio': fall_time,
-            'Shape_Area': np.trapezoid(signal), # Trapezoidal rule for area
+            'Shape_Area': np.trapz(signal), # Trapezoidal rule for area
             'Shape_Energy': np.sum(signal ** 2),
             'Shape_Zero_Crossings': len(zero_crossings)
         }
