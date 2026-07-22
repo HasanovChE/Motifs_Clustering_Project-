@@ -71,8 +71,5 @@ desktop.ini
 *.sqlite
 *.db
 
-# Project specific data and generated outputs
-outputs/
-cleaned_motifs.csv
 *.tmp
 *.temp
