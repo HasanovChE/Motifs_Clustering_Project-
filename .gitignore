@@ -71,5 +71,6 @@ desktop.ini
 *.sqlite
 *.db
 
+# Project specific data and generated outputs
 *.tmp
 *.temp
