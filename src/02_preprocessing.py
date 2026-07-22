@@ -185,7 +185,7 @@ class SignalPreprocessor:
 if __name__ == "__main__":
     try:        
         # 1. Initialize the processor
-        processor = SignalPreprocessor("data\signals_data.csv")
+        processor = SignalPreprocessor("data/signals_data.csv")
         
         # 2. Create an empty DataFrame to store all cleaned signals
         processed_signals = pd.DataFrame()

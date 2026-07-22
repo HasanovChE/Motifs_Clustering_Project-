@@ -110,7 +110,7 @@ class MotifCleaner:
 if __name__ == "__main__":
 
     # 2. Run the cleaning pipeline
-    cleaner = MotifCleaner('data\raw_motifs.csv')
+    cleaner = MotifCleaner('data/raw_motifs.csv')
     
     # Method chaining for clean, readable pipeline execution
     cleaned_df = (

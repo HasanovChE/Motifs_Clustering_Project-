@@ -175,7 +175,7 @@ class MotifExtractor():
 # ==========================================
 if __name__ == "__main__":
     
-    extractor = MotifExtractor('data\preprocessed_signals_data.csv')
+    extractor = MotifExtractor('data/preprocessed_signals_data.csv')
 
     
     print("Extracting via Fixed Threshold (110)...")
@@ -219,7 +219,7 @@ if __name__ == "__main__":
         print("\nSample Output (First 3 motifs, Fixed Threshold):")
         print(df_fixed.drop(columns=['Raw_Signal']).head(3).to_string())
     
-    raw_motifs_df = extractor.extract_from_zero_baseline()
-    raw_motifs_df.to_csv("data/raw_motifs.csv", index=False)
+    raw_motifs = extractor.extract_from_zero_baseline()
+    raw_motifs.to_csv("data/raw_motifs.csv", index=False)
     print("##################################################################################")
-    print(f"Combined dataframe created with {len(raw_motifs_df)} total rows and saved.")
+    print(f"Combined dataframe created with {len(raw_motifs)} total rows and saved.")

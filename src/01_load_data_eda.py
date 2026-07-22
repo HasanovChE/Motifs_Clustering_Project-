@@ -137,7 +137,7 @@ class SignalEDA:
 # ==========================================
 if __name__ == "__main__":
     # Create a dummy CSV if it doesn't exist to ensure the script runs out of the box
-    filename = 'data\signals_data.csv'
+    filename = 'data/signals_data.csv'
 
     # Initialize the EDA class
     eda = SignalEDA(filename)

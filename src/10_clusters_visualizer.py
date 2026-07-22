@@ -249,14 +249,14 @@ if __name__ == "__main__":
     motif_labels = kmeans.fit_predict(X_features)
     motif_lengths = df_features['Shape_Length'].values.astype(int)
 
-    df_motifs = pd.read_csv("cleaned_motifs.csv")
+    df_motifs = pd.read_csv("data/cleaned_motifs.csv")
 
     # Safely parse the text strings back into numpy arrays
     df_motifs['Raw_Signal'] = df_motifs['Raw_Signal'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) else x)
     motifs = [np.array(m) for m in df_motifs['Raw_Signal']]
 
     try:
-      df_continuous = pd.read_csv("preprocessed_signals_data.csv")
+      df_continuous = pd.read_csv("data/preprocessed_signals_data.csv")
       # Grab the very first signal in the dataset to act as our visualization background
       first_sig_col = df_continuous.columns[0]
       raw_signal = df_continuous[first_sig_col].values
@@ -270,7 +270,7 @@ if __name__ == "__main__":
       signal_labels = motif_labels[sig_mask]
     
     except FileNotFoundError:
-      print("WARNING: 'cleaned_signals_data.csv' not found. Using a fallback signal for the timeline.")
+      print("WARNING: 'data/cleaned_signals_data.csv' not found. Using a fallback signal for the timeline.")
       # Fallback just in case the continuous data isn't saved in this directory
       raw_signal = np.zeros(1000)
       starts, ends, signal_labels = [], [], []
