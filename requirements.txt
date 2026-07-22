@@ -13,6 +13,7 @@ umap-learn
 hdbscan
 minisom
 geometrix
-torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-
+torch
+torchvision
+torchaudio
 
