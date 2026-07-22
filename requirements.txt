@@ -13,7 +13,7 @@ umap-learn
 hdbscan
 minisom
 geometrix
-torch
+torch>=2.0.0 
 torchvision
 torchaudio
 
