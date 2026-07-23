@@ -32,6 +32,25 @@ except ImportError as e:
     st.error(f"⚠️ Could not import modules from main.py: {e}")
 
 # =========================================================
+# HELPER: VERSION-SAFE IMAGE DISPLAY
+# =========================================================
+def st_image(image, caption=None, stretch=True, **kwargs):
+    """
+    Safely displays an image across different Streamlit versions (`width="stretch"` vs `use_column_width=True`)
+    without TypeErrors or deprecation warnings.
+    """
+    if stretch:
+        try:
+            st.image(image, caption=caption, width="stretch", **kwargs)
+        except Exception:
+            try:
+                st.image(image, caption=caption, use_column_width=True, **kwargs)
+            except Exception:
+                st.image(image, caption=caption, **kwargs)
+    else:
+        st.image(image, caption=caption, **kwargs)
+
+# =========================================================
 # 1. STREAMLIT CACHING (PREVENT OUT OF MEMORY - OOM)
 # =========================================================
 @st.cache_data(show_spinner=False)
@@ -752,7 +771,7 @@ try:
             
             if "01_eda_signal" in st.session_state["pipeline_results"]["plots"] and os.path.exists(st.session_state["pipeline_results"]["plots"]["01_eda_signal"]):
                 st.markdown("#### 🖼️ Stage 1 Generated EDA Plot")
-                st.image(st.session_state["pipeline_results"]["plots"]["01_eda_signal"], caption="Exploratory Signal Distribution & Waveform Profile", use_container_width=True)
+                st_image(st.session_state["pipeline_results"]["plots"]["01_eda_signal"], caption="Exploratory Signal Distribution & Waveform Profile", stretch=True)
             
             st.markdown("#### 📋 Raw Dataset Grid Preview")
             st.dataframe(raw_df.head(25), use_container_width=True)
@@ -795,7 +814,7 @@ try:
             if "02_preprocessing_comparison" in st.session_state["pipeline_results"]["plots"] and os.path.exists(st.session_state["pipeline_results"]["plots"]["02_preprocessing_comparison"]):
                 st.markdown("---")
                 st.markdown("#### 🖼️ Preprocessing Filter Comparison Tracks (Depth-Log Layout)")
-                st.image(st.session_state["pipeline_results"]["plots"]["02_preprocessing_comparison"], caption="Stage 2: Comparison of Noise Removal, Baseline Subtraction, and Normalization Techniques", use_container_width=True)
+                st_image(st.session_state["pipeline_results"]["plots"]["02_preprocessing_comparison"], caption="Stage 2: Comparison of Noise Removal, Baseline Subtraction, and Normalization Techniques", stretch=True)
                 
             st.markdown("#### 📋 Preprocessed Signals Matrix")
             st.dataframe(processed_df.head(25), use_container_width=True)
@@ -1100,40 +1119,40 @@ try:
                 
             if "10_generalized_motifs" in plots and os.path.exists(plots["10_generalized_motifs"]):
                 st.markdown("#### 2. Generalized Cluster Shapes & Candidate Overlays (Figure 2 Style)")
-                st.image(plots["10_generalized_motifs"], caption="Individual resampled motifs (grey) overlaid with the cluster centroid generalized shape (bold color)", use_container_width=True)
+                st_image(plots["10_generalized_motifs"], caption="Individual resampled motifs (grey) overlaid with the cluster centroid generalized shape (bold color)", stretch=True)
                 st.markdown("---")
                 
             col_p1, col_p2 = st.columns(2)
             with col_p1:
                 if "10_pca_clusters" in plots and os.path.exists(plots["10_pca_clusters"]):
                     st.markdown("#### 3. PCA 2D Manifold Projection")
-                    st.image(plots["10_pca_clusters"], use_container_width=True)
+                    st_image(plots["10_pca_clusters"], stretch=True)
             with col_p2:
                 if "10_tsne_clusters" in plots and os.path.exists(plots["10_tsne_clusters"]):
                     st.markdown("#### 4. t-SNE 2D Manifold Projection")
-                    st.image(plots["10_tsne_clusters"], use_container_width=True)
+                    st_image(plots["10_tsne_clusters"], stretch=True)
                     
             st.markdown("---")
             col_p3, col_p4 = st.columns(2)
             with col_p3:
                 if "10_silhouette_plot" in plots and os.path.exists(plots["10_silhouette_plot"]):
                     st.markdown("#### 5. Silhouette Coefficient Profile")
-                    st.image(plots["10_silhouette_plot"], use_container_width=True)
+                    st_image(plots["10_silhouette_plot"], stretch=True)
             with col_p4:
                 if "10_length_histograms" in plots and os.path.exists(plots["10_length_histograms"]):
                     st.markdown("#### 6. Length Distribution Histograms")
-                    st.image(plots["10_length_histograms"], use_container_width=True)
+                    st_image(plots["10_length_histograms"], stretch=True)
                     
             st.markdown("---")
             col_p5, col_p6 = st.columns(2)
             with col_p5:
                 if "10_dendrogram" in plots and os.path.exists(plots["10_dendrogram"]):
                     st.markdown("#### 7. Hierarchical Dendrogram")
-                    st.image(plots["10_dendrogram"], use_container_width=True)
+                    st_image(plots["10_dendrogram"], stretch=True)
             with col_p6:
                 if "10_distance_heatmap" in plots and os.path.exists(plots["10_distance_heatmap"]):
                     st.markdown("#### 8. Distance Matrix Cluster Blocks")
-                    st.image(plots["10_distance_heatmap"], use_container_width=True)
+                    st_image(plots["10_distance_heatmap"], stretch=True)
         else:
             st.info("👈 Click **'▶️ Run Stage 10: Generate Diagnostic Visualizations'** above to construct publication-quality diagnostic plots.")
 
