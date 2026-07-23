@@ -726,17 +726,17 @@ try:
     st.markdown("### 📊 Step-by-Step 11-Stage Interactive Workflow Studio")
     
     stages_tabs = st.tabs([
-        "1️⃣ Stage 1: Load & EDA",
-        "2️⃣ Stage 2: Preprocessing",
-        "3️⃣ Stage 3: Extraction",
-        "4️⃣ Stage 4: Cleaning",
-        "5️⃣ Stage 5: Features",
-        "6️⃣ Stage 6: Similarity",
-        "7️⃣ Stage 7: Clustering",
-        "8️⃣ Stage 8: Hyper Tuning",
-        "9️⃣ Stage 9: Validation",
-        "🔟 Stage 10: Visualizations",
-        "🏆 Stage 11: Best Model & Export"
+        "1️⃣ Load & EDA",
+        "2️⃣ Preprocessing",
+        "3️⃣ Extraction",
+        "4️⃣ Cleaning",
+        "5️⃣ Features",
+        "6️⃣ Similarity",
+        "7️⃣ Clustering",
+        "8️⃣ Hyper Tuning",
+        "9️⃣ Validation",
+        "🔟 Visualizations",
+        "🏆 Best Model & Export"
     ])
 
     # ---------------------------------------------------------
